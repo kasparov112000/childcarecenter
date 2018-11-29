@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+
 
 @Component({
   selector: 'app-camara',
@@ -7,9 +8,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CamaraComponent implements OnInit {
 
+  @ViewChild('renato') video
+  @ViewChild('renato1') video1
   constructor() { }
 
   ngOnInit() {
+    navigator.mediaDevices.getUserMedia({
+       video: {
+         facingMode: 'user'
+       }
+    }).then(stream => {
+      this.video.nativeElement.srcObject = stream;
+      this.video1.nativeElement.srcObject = stream
+    })
   }
 
 }
